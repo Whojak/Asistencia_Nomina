@@ -3,9 +3,13 @@ session_start();
 include 'timezone.php';
 
 if (isset($_SESSION["id"])) {
+    $id = $_SESSION["id"];
+    $empleadoID = $_SESSION["employee_id"];
   $correo = $_SESSION["usu_correo"];
   $Nombre = $_SESSION["firstname"];
-  $Employeid= $_SESSION["employee_id"];
+  $lastname = $_SESSION["lastname"];
+  $gender = $_SESSION["gender"];
+  
 } else {
   $correo = "Correo no disponible";
   $Nombre = "Nombre no disponible";
@@ -25,17 +29,18 @@ $currentTime = get_current_time(); // Call the function
         <meta content="Themesbrand" name="author">
 
         <!-- plugin css -->
-        <link href="../../../assets/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
+        <link href="../../assets/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
 
         <!-- preloader css -->
-        <link rel="stylesheet" href="../../../assets/css/preloader.min.css" type="text/css">
+        <link rel="stylesheet" href="../../assets/css/preloader.min.css" type="text/css">
 
+        
         <!-- Bootstrap Css -->
-        <link href="../../../assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
+        <link href="../../assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
         <!-- Icons Css -->
-        <link href="../../../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        <link href="../../assets/css/icons.min.css" rel="stylesheet" type="text/css">
         <!-- App Css-->
-        <link href="../../../assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
+        <link href="../../assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
 
     </head>
 
@@ -44,7 +49,7 @@ $currentTime = get_current_time(); // Call the function
     <!-- <body data-layout="horizontal"> -->
 
         <!-- Begin page -->
-        <div id="layout-wrapper">
+        <div class="layout-wrapper" id="layout-wrapper">
 
             
             <header id="page-topbar">
@@ -52,21 +57,21 @@ $currentTime = get_current_time(); // Call the function
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="../../home/" class="logo logo-dark">
+                            <a href="" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="../../../assets/picture/logo-sm.svg" alt="" height="24">
+                                    <img src="../../assets/picture/logo-sm.svg" alt="" height="24">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="../../../assets/picture/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Nómina</span>
+                                    <img src="../../assets/picture/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Nómina</span>
                                 </span>
                             </a>
 
-                            <a href="../../home/" class="logo logo-light">
+                            <a href="" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="../../../assets/picture/logo-sm.svg" alt="" height="24">
+                                    <img src="../../assets/picture/logo-sm.svg" alt="" height="24">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="../../../assets/picture/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Nómina</span>
+                                    <img src="../../assets/picture/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Nómina</span>
                                 </span>
                             </a>
                         </div>
@@ -112,19 +117,19 @@ $currentTime = get_current_time(); // Call the function
                                     <div class="row g-0">
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/github.png" alt="Github">
+                                                <img src="../../assets/picture/github.png" alt="Github">
                                                 <span>GitHub</span>
                                             </a>
                                         </div>
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/bitbucket.png" alt="bitbucket">
+                                                <img src="../../assets/picture/bitbucket.png" alt="bitbucket">
                                                 <span>Bitbucket</span>
                                             </a>
                                         </div>
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/dribbble.png" alt="dribbble">
+                                                <img src="../../assets/picture/dribbble.png" alt="dribbble">
                                                 <span>Dribbble</span>
                                             </a>
                                         </div>
@@ -133,19 +138,19 @@ $currentTime = get_current_time(); // Call the function
                                     <div class="row g-0">
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/dropbox.png" alt="dropbox">
+                                                <img src="../../assets/picture/dropbox.png" alt="dropbox">
                                                 <span>Dropbox</span>
                                             </a>
                                         </div>
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/mail_chimp.png" alt="mail_chimp">
+                                                <img src="../../assets/picture/mail_chimp.png" alt="mail_chimp">
                                                 <span>Mail Chimp</span>
                                             </a>
                                         </div>
                                         <div class="col">
                                             <a class="dropdown-icon-item" href="#">
-                                                <img src="../../../assets/picture/slack.png" alt="slack">
+                                                <img src="../../assets/picture/slack.png" alt="slack">
                                                 <span>Slack</span>
                                             </a>
                                         </div>
@@ -155,16 +160,16 @@ $currentTime = get_current_time(); // Call the function
                         </div>
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="../../../assets/picture/avatar-1.jpg" alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user" src="../../assets/picture/avatar-1.jpg" alt="Header Avatar">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium"><?php echo $Nombre ?></span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Mi perfil</a>
+                                <a class="dropdown-item" href="../profile/index.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Mi perfil</a>
                                 <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Restablecer contraseña</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../../../index.php"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i>Cerrar Sesión</a>
+                                <a class="dropdown-item" href="../../index.php"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i>Cerrar Sesión</a>
                             </div>
                         </div>
 
@@ -184,7 +189,7 @@ $currentTime = get_current_time(); // Call the function
                             <li class="menu-title" data-key="t-menu">Menu</li>
 
                             <li>
-                                <a href="../../home/">
+                                <a href="">
                                     <i data-feather="home"></i>
                                     <span data-key="t-dashboard">Dashboard</span>
                                 </a>
@@ -195,18 +200,18 @@ $currentTime = get_current_time(); // Call the function
                                     <span data-key="t-icons">Historiales de Empleado</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="../horas_trabajadas/" data-key="t-boxicons">Horas Trabajadas</a></li>
-                                    <li><a href="../horas_extras/" data-key="t-material-design">Horas Extras</a></li>
-                                    <li><a href="../tiempo_de_descanso/" data-key="t-dripicons">Tiempo de Descanso</a></li>
-                                    <li><a href="../horas_por_cumplir/" data-key="t-dripicons">Horas por Cumplir</a></li>
-                                    <li><a href="../deducciones/" data-key="t-font-awesome">Deducciones</a></li>
+                                    <li><a href="../historiales/horas_trabajadas/" data-key="t-boxicons">Horas Trabajadas</a></li>
+                                    <li><a href="#" data-key="t-material-design">Horas Extras</a></li>
+                                    <li><a href="../historiales/tiempo_de_descanso/" data-key="t-material-design">Tiempo de descanso</a></li>
+                                    <li><a href="../historiales/horas_por_cumplir/" data-key="t-dripicons">Horas por Cumplir</a></li>
+                                    <li><a href="#" data-key="t-font-awesome">Deducciones</a></li>
                                 </ul>
                             </li>
                         </ul>
 
                         <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
                             <div class="card-body">
-                                <img src="../../../assets/picture/giftbox.png" alt="">
+                                <img src="../../assets/picture/giftbox.png" alt="">
                                 <div class="mt-4">
                                     <h5 class="alertcard-title font-size-16">Actualizar mi plan</h5>
                                     <p class="font-size-13">Actualice su plan desde una prueba gratuita para seleccionar "Plan de negocios".</p>
@@ -231,17 +236,12 @@ $currentTime = get_current_time(); // Call the function
                     <div class="container-fluid">
                     
                         <!-- start page title -->
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Deducciones</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Perfil de usuario</h4>
 
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Historiales</a></li>
-                                            <li class="breadcrumb-item active">Deducciones</li>
-                                        </ol>
-                                    </div>
+                                    
 
                                 </div>
                             </div>
@@ -250,56 +250,315 @@ $currentTime = get_current_time(); // Call the function
                         <div class="row justify-content-center align-items-center">
                             <div class="col-xl-9 col-lg-8">
                                 <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="d-flex align-items-start mt-3 mt-sm-0">
-                                                <div class="d-flex align-items-start mt-3 mt-sm-0">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="avatar-xl me-3">
-                                                            <img src="../../../assets/picture/avatar-2.jpg" alt="" class="img-fluid rounded-circle d-block">
+                                <div class="card-body text-center">
+                                     <!-- inicio card body -->
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-12">
+                                                    <div class="d-flex flex-column align-items-center mt-3 mt-sm-0">
+                                                        <div class="avatar-xl mb-3">
+                                                            <img src="../../assets/picture/avatar-2.jpg" alt="" class="img-fluid rounded-circle d-block">
                                                         </div>
-                                                    </div>
-                                                    <div class="flex-grow-1">
                                                         <div>
-                                                            <h5 class="font-size-16 mb-1"><?php echo $Nombre ?></h5>
+                                                            <h5 class="font-size-16 mb-1"><?php echo $Nombre ?> <?php echo $lastname ?></h5>
                                                             <p class="text-muted font-size-13">Cargo: Full Stack Developer</p>
-
-                                                            <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
-                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>ID Empleado:<?php echo $Employeid ?></div>
-                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i><?php echo $correo ?></div>
+                                                            <div class="d-flex flex-column align-items-center gap-2 text-muted font-size-13">
+                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>ID Empleado: <?php echo $empleadoID ?></div>
+                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Correo: <?php echo $correo ?></div>
+                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Género: <?php echo $gender ?></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                       </div>
-                                   </div>
+                                        </div>
+
                                     <!-- end card body -->
                                 </div>
+                        
+                        <div class="row">
+
+                        <style>
+
+
+.select-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    /* Estilos para el select */
+    .select-wrapper select {
+        width: 120px; /* Ancho del botón más pequeño */
+        padding: 8px;
+        font-size: 14px;
+        border: 2px solid #000; /* Borde negro */
+        border-radius: 5px;
+        background-color: transparent; /* Fondo transparente */
+        color: #000; /* Texto negro */
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .select-wrapper select:focus {
+        border-color: #1abc9c;
+        outline: none;
+    }
+
+    /* Estilos para el botón de asistencia */
+    .btn-assistance {
+        display: inline-block;
+        width: 120px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        color: #fff; /* Texto blanco */
+        background-color: #1abc9c; /* Fondo verde */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-assistance:hover {
+        background-color: #16a085;
+        transform: scale(1.05);
+    }
+
+    /* Estilos adicionales para centrar todo el contenido */
+    .card.text-center .card-header, 
+    .card.text-center .card-body, 
+    .card.text-center .clock {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-title {
+        flex-grow: 0;
+        margin: 0 auto;
+    }
+
+    .clock {
+        font-size: 18px;
+        color: #333;
+    }
+    .custom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Separación entre botones */
+            flex-wrap: wrap; /* Permite que los botones se envuelvan en líneas */
+        }
+
+        .custom-buttons .btn {
+            position: relative;
+            width: 50px; /* Ancho del botón */
+            height: 150px; /* Alto del botón */
+            background-color: #3498db; /* Color de fondo */
+            border: none;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            overflow: hidden;
+            text-align: center;
+            line-height: 58px; /* Alineación vertical del texto */
+            clip-path: polygon(50% 100%, 100% 75%, 100% 25%, 50% 0%, 0% 25%, 0% 75%);
+            transition: all 0.3s ease;
+        }
+
+        .custom-buttons .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .custom-buttons .btn-primary {
+            background-color: #3498db; /* Color de fondo para el botón Iniciar */
+        }
+
+        .custom-buttons .btn-warning {
+            background-color: #f39c12; /* Color de fondo para el botón Pausar */
+        }
+
+        .custom-buttons .btn-info {
+            background-color: #1abc9c; /* Color de fondo para el botón Continuar */
+        }
+
+        .custom-buttons .btn-danger {
+            background-color: #e74c3c; /* Color de fondo para el botón Finalizar */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .custom-buttons .btn {
+                width: 80px; /* Ancho del botón en pantallas pequeñas */
+                height: 70px; /* Alto del botón en pantallas pequeñas */
+                line-height: 46px; /* Alineación vertical del texto en pantallas pequeñas */
+                font-size: 14px; /* Tamaño de fuente más pequeño */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .custom-buttons .btn {
+                width: 60px; /* Ancho del botón en pantallas muy pequeñas */
+                height: 50px; /* Alto del botón en pantallas muy pequeñas */
+                line-height: 34px; /* Alineación vertical del texto en pantallas muy pequeñas */
+                font-size: 12px; /* Tamaño de fuente más pequeño */
+            }
+        }
+
+</style>
+
+
+
+  
+
+                        <!-- CARTA 1 -->
+                    <div class="col-xl-4">
+                        <div class="card text-center">
+                            <div class="card-header align-items-center d-flex justify-content-center">
+                                <h3 class="card-title mb-0">Marcar asistencia</h3>
+                            </div><!-- end card header -->
+
+                            <div class="card-body">
+                                <h6>Hora local:</h6>
+                                <div class="clock" id="reloj">Loading...</div>
+                                <br>
+
+                                <h6>Marca tu asistencia</h6>
+
+                                <div class="select-wrapper">
+                                    <select id="actionType">
+                                        <option value="Entrada">Entrada</option>
+                                        <option value="Salida">Salida</option>
+                                    </select>
+                                </div>
+                               
+                                <button class="btn-assistance" onclick="logAsistencia()">Asistencia</button>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div>
+
+                            <!-- end col -->
+
+
+                            <!-- CARTA 2 -->
+                            <div class="col-xl-4">
+                            <div class="card text-center">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Jornada laboral</h4>
+                                        <div class="flex-shrink-0">
+                                        
+                                        </div>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+                                    <h6>Horario laboral</h6>
+                                    <div class="clock" id="clock1">7:45:00</div>
+                                    <br>
+                                    <h6>Tiempo de receso</h6>
+                                    <div class="clock" id="clock2">45:00</div>
+                                    <br>
+                                    <h6>Pausas diarias</h6>
+                                    <div class="clock" id="clock3">0</div>
+                                    
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            
+                            </div>
+
+                            <!-- CARTA 3 -->
+                            <div class="col-xl-4">
+                            <div class="card text-center">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Tiempo de jornada</h4>
+                                        <div class="flex-shrink-0">
+                                        
+                                        </div>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+                                <h6>Asistencia:</h6>
+                                <div class="log" id="asistenciaLog"></div>
+                                <br>
+                                <h6>Horario laboral:</h6>
+                                <div class="log" id="timerLog"></div>
+                                <br>
+                                <h6>Tiempo de receso:</h6>
+                                <div class="log" id="secondTimerLog"></div>
+                                <br>
+                                <h6>Pausas diarias:</h6>
+                                <div class="log" id="dailyPauseLog"></div>
+                            </div>
+
+
+
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            
+                            </div>
+                           
+                        </div><!-- end row -->
                     </div>
                     <!-- container-fluid -->
-                    <div class="box-body">
-                        <table id="example1" class="table table-bordered">
-                            <thead>
-                                <th>ID Empleado</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Porcentaje</th>
-                            </thead>
-                            <tbody>
-                                </tr>
-                                <td>JL12220</td>
-                                <td>Luis Del Cid</td>
-                                <td>AFP</td>
-                                <td>7.25</td>   
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-                <!-- End Page-content -->
-            </div>
-            </div>
+
+
+                 <!-- NUEVOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
+
+
+
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Botones con funciones -->
+                                    <!-- Botones con funciones -->
+                                    <div class="btn-group custom-buttons">
+                                    <input type="submit" class="btn btn-primary" id="startTimer" value="Iniciar" disabled>
+                                    <input type="submit" class="btn btn-warning" id="pauseTimer" value="Pausar" disabled>
+                                    <input type="submit" class="btn btn-info" id="resumeTimer" value="Continuar" disabled>
+                                    <input type="submit" class="btn btn-danger" id="stopTimer" value="Finalizar" disabled>
+                        
+                                 </div>
+
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                        </div>
+                    </div><!-- end row -->
+                </div><!-- end container -->
+
+                </div>
+                <!-- container-fluid -->
+                </div>
+
+
+
+                                <!-- End Page-content -->
+
+
+                <!-- Logica reloj -->
+                    
+                <script src="js/script.js"></script>
+
+
+
+
+
+
+            </body>
+
+
+
+
+
+
+
+
                 <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
@@ -442,27 +701,25 @@ $currentTime = get_current_time(); // Call the function
         <div class="rightbar-overlay"></div>
 
         <!-- JAVASCRIPT -->
-        <script src="../../../assets/js/jquery.min.js"></script>
-        <script src="../../../assets/js/bootstrap.bundle.min.js"></script>
-        <script src="../../../assets/js/metisMenu.min.js"></script>
-        <script src="../../../assets/js/simplebar.min.js"></script>
-        <script src="../../../assets/js/waves.min.js"></script>
-        <script src="../../../assets/js/feather.min.js"></script>
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/metisMenu.min.js"></script>
+        <script src="../../assets/js/simplebar.min.js"></script>
+        <script src="../../assets/js/waves.min.js"></script>
+        <script src="../../assets/js/feather.min.js"></script>
         <!-- pace js -->
-        <script src="../../../assets/js/pace.min.js"></script>
+        <script src="../../assets/js/pace.min.js"></script>
 
         <!-- apexcharts -->
-        <script src="../../../assets/js/apexcharts.min.js"></script>
+        <script src="../../assets/js/apexcharts.min.js"></script>
 
         <!-- Plugins js-->
-        <script src="../../../assets/js/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="../../../assets/js/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="../../assets/js/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="../../assets/js/jquery-jvectormap-world-mill-en.js"></script>
         <!-- dashboard init -->
-        <script src="../../../assets/js/dashboard.init.js"></script>
+        <script src="../../assets/js/dashboard.init.js"></script>
 
-        <script src="../../../assets/js/app.js"></script>
-
-        <?php include '../../../assets/scripts.php'; ?>
+        <script src="../../assets/js/app.js"></script>
 
     </body>
 

@@ -12,6 +12,36 @@ if (isset($_SESSION["id"])) {
 }
 
 $currentTime = get_current_time(); // Call the function
+
+
+// Incluye el archivo del modelo de asistencia
+require_once("../../../config/conexion.php");
+require_once("../../../models/Asistencia.php");
+// Verifica si la sesión ya está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verifica si el usuario ha iniciado sesión y tiene un employee_id
+if (!isset($_SESSION["id"])) {
+    die("No hay sesión activa o no se ha proporcionado un employee_id.");
+}
+
+// Obtiene el employee_id de la sesión
+$employee_id = $_SESSION["id"];
+
+
+// Crea una instancia del modelo Assistance
+$assistance = new Assistance();
+
+// Obtiene las asistencias del empleado
+try {
+    $asistencias = $assistance->get_asistencia_employee_id($employee_id);
+    
+} catch (Exception $e) {
+    die("Error en la consulta: " . $e->getMessage());
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -281,24 +311,36 @@ $currentTime = get_current_time(); // Call the function
                     <div class="box-body">
                         <table id="example1" class="table table-bordered">
                             <thead>
-                                <th>Fecha</th>
+                              
                                 <th>ID Empleado</th>
                                 <th>Horas Cumplidas</th>
                                 <th>Horas Pendientes</th>
                                 <th>Tiempo restante de receso </th>
                                 <th>Hora Entrada</th>
                                 <th>Hora Salida</th>
+                                <th>Fecha</th>
                             </thead>
                             <tbody>
-                                </tr>
-                                <td>Fecha 1</td>
-                                <td>JL12220</td>
-                                <td>6 horas</td>
-                                <td>2 horas</td>
-                                <td>10 min</td>
-                                <td>9:00 pm</td>   
-                                <td>5:00 pm</td>   
-                            </tr>
+                            <?php if (!empty($asistencias)): ?>
+                <?php foreach ($asistencias as $asistencia): ?>
+                    <tr>
+                    
+                        <td><?php echo $asistencia['employee_id']; ?></td>
+                       
+                        <td><?php echo $asistencia['work_completed']; ?></td>
+                        <td><?php echo $asistencia['time_to_recover']; ?></td>
+                      
+                        <td><?php echo $asistencia['additional_time']; ?></td>
+                        <td><?php echo $asistencia['time_entry']; ?></td>
+                        <td><?php echo $asistencia['time_exit']; ?></td>
+                        <td><?php echo $asistencia['date']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="10">No se encontraron asistencias.</td>
+                </tr>
+            <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -468,7 +510,7 @@ $currentTime = get_current_time(); // Call the function
 
         <script src="../../../assets/js/app.js"></script>
 
-        <?php include '../../../assets/scripts.php'; ?>
+        <?php //include '../../../assets/scripts.php'; ?>
 
     </body>
 

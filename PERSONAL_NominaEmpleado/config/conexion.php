@@ -11,7 +11,7 @@
         protected function conexion(){
             try{
                 /* TODO: Intenta establecer la conexión utilizando PDO */
-                $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=nomina","root",'Pa$$w0rd');
+                $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=nomina","root","");
                 return $conectar;
             }catch(Exception $e){
                 /* TODO: En caso de error, imprime un mensaje y termina el script */
@@ -27,7 +27,7 @@
 
         /* TODO: Método estático que devuelve la ruta base del proyecto */
         public static function ruta(){
-            return "http://localhost:80/PERSONAL_NominaEmpleado";
+            return "http://localhost:8080/MVP-Sistema_Nominas_Empleado/PERSONAL_NominaEmpleado";
         }
     }
 ?>

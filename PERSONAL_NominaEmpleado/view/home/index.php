@@ -5,7 +5,6 @@ include 'timezone.php';
 if (isset($_SESSION["id"])) {
   $correo = $_SESSION["usu_correo"];
   $Nombre = $_SESSION["firstname"];
-  $Employeid= $_SESSION["employee_id"];
 } else {
   $correo = "Correo no disponible";
   $Nombre = "Nombre no disponible";
@@ -161,7 +160,7 @@ $currentTime = get_current_time(); // Call the function
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Mi perfil</a>
+                                <a class="dropdown-item" href="../profile/index.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Mi perfil</a>
                                 <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Restablecer contraseña</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../../index.php"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i>Cerrar Sesión</a>
@@ -190,15 +189,15 @@ $currentTime = get_current_time(); // Call the function
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript: void(0);" class="">
+                                <a href="javascript: void(0);" class="has-arrow">
                                     <i data-feather="cpu"></i>
-                                    <span data-key="t-icons">Historiales de Empleado</span>
+                                    <span data-key="t-icons">Información del sistema</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="../historiales/horas_trabajadas/" data-key="t-boxicons">Horas Trabajadas</a></li>
-                                    <li><a href="#" data-key="t-material-design">Horas Extras</a></li>
-                                    <li><a href="#" data-key="t-dripicons">Horas por Cumplir</a></li>
-                                    <li><a href="#" data-key="t-font-awesome">Deducciones</a></li>
+                                    <li><a href="#" data-key="t-boxicons">Versión del sistema</a></li>
+                                    <li><a href="#" data-key="t-material-design">Mi contrato</a></li>
+                                    <li><a href="#" data-key="t-dripicons">Solicitudes</a></li>
+                                    <li><a href="#" data-key="t-font-awesome">Soporte</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -246,7 +245,7 @@ $currentTime = get_current_time(); // Call the function
                             </div>
                         </div>
                         <!-- end page title -->
-                        <div class="row justify-content-center align-items-center">
+                        <div class="row">
                             <div class="col-xl-9 col-lg-8">
                                 <div class="card">
                                     <div class="card-body">
@@ -264,7 +263,7 @@ $currentTime = get_current_time(); // Call the function
                                                             <p class="text-muted font-size-13">Cargo: Full Stack Developer</p>
 
                                                             <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
-                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>ID Empleado:<?php echo $Employeid ?></div>
+                                                                <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>ID Empleado:</div>
                                                                 <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i><?php echo $correo ?></div>
                                                             </div>
                                                         </div>
