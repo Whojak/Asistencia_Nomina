@@ -35,12 +35,12 @@ switch ($actionType) {
         $logEntry = "Salida: $loggedTime";
         break;
     case 'Timer1':
-        $initialTime = '07:45:00';
+        $initialTime = '06:40:00';
         $timeDifference = calculateTimeDifference($initialTime, $time);
         $logEntry = "Horas de trabajo cumplidas: $timeDifference  Tiempo a reponer $time";
         break;
     case 'Timer2':
-        $initialTime = '45:00';
+        $initialTime = '20:00';
         $timeDifference = calculateTimeDifference($initialTime, $time, true);
         $logEntry = "Receso cumplido: $timeDifference  Tiempo adicional $time";
         break;
