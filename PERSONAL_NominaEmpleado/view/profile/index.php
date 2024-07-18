@@ -500,7 +500,7 @@ $currentTime = get_current_time(); // Call the function
                                 <div class="log" id="secondTimerLog"></div>
                                 <br>
                                 <h6>Tiempo de almuerzo:</h6>
-                                <div class="log" id="almuerzoLog"></div>
+                                <div class="log" id="lunchTimerLog"></div>
                                 <br>
                                 <h6>Pausas diarias:</h6>
                                 <div class="log" id="dailyPauseLog"></div>

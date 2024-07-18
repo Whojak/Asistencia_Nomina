@@ -34,6 +34,7 @@
                                 $_SESSION["employee_id"] = $resultado["employee_id"];
                                 $_SESSION["firstname"] = $resultado["firstname"];
                                 $_SESSION["usu_correo"] = $resultado["usu_correo"];
+                                $_SESSION["gender"] = $resultado["gender"];
                                 header("Location:".Conectar::ruta()."/view/home/");
                                 exit();
                             }

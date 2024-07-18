@@ -198,6 +198,7 @@ function stopTimer() {
   logTimer("Horas de trabajo cumplidas", finalTime, "Timer1");
   clockElem.textContent = "06:40:00";
   stopSecondTimer();
+  stopLunchTimer();
 
   document.getElementById("startTimer").disabled = true;
   document.getElementById("resumeTimer").disabled = true;
@@ -230,14 +231,19 @@ async function logTimer(action, time, timerType) {
   }
   const loggedTime = await response.text();
   const logElem = document.getElementById(
-    timerType === "Timer1" ? "timerLog" : "secondTimerLog"
+    timerType === "Timer1"
+      ? "timerLog"
+      : timerType === "Timer2"
+      ? "secondTimerLog"
+      : timerType === "LunchTimer" // Check for LunchTimer
+      ? "lunchTimerLog"
+      : "dailyPauseLog" // Fallback for other logs
   );
 
   const timeEntry = document.createElement("div");
   timeEntry.textContent = loggedTime;
   logElem.appendChild(timeEntry);
 }
-
 document.getElementById("startTimer").addEventListener("click", startTimer);
 document.getElementById("pauseTimer").addEventListener("click", pauseTimer);
 document.getElementById("resumeTimer").addEventListener("click", resumeTimer);
@@ -338,7 +344,7 @@ let lunchTimerInterval;
 let lunchStartTime;
 let lunchPausedTime = 0;
 let lunchPaused = false;
-const lunchInitialTime = 30 * 60 * 1000;
+const lunchInitialTime = 60 * 60 * 1000; // 60 minutes
 
 function updateLunchTimerClock() {
   const clockElem = document.getElementById("clock4");
@@ -418,11 +424,7 @@ function stopLunchTimer() {
   const clockElem = document.getElementById("clock4");
   const finalTime = clockElem.textContent;
   logTimer("Finalizado", finalTime, "LunchTimer");
-  clockElem.textContent = "60:00";
-
-  // document.getElementById("resumeLunchTimer").disabled = true;
-  //document.getElementById("pauseLunchTimer").disabled = true;
-  //document.getElementById("stopLunchTimer").disabled = true;
+  clockElem.textContent = "60:00"; // Reset lunch timer to 60 minutes
 }
 
 document

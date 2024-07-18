@@ -44,6 +44,11 @@ switch ($actionType) {
         $timeDifference = calculateTimeDifference($initialTime, $time, true);
         $logEntry = "Receso cumplido: $timeDifference  Tiempo adicional $time";
         break;
+    case 'LunchTimer':
+        $initialTime = '60:00';
+        $timeDifference = calculateTimeDifference($initialTime, $time, true);   
+        $logEntry = "Tiempo de almuerzo: $timeDifference  Tiempo no cumplido de almuerzo: $time";       
+        break;    
     case 'StopTimer':
         $logEntry = "Pausas diarias: $dailyPauses";
         break;
