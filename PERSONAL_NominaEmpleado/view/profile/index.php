@@ -372,20 +372,20 @@ $currentTime = get_current_time(); // Call the function
         }
 
         .custom-buttons .btn-primary {
-            background-color: #3498db; /* Color de fondo para el botón Iniciar */
+            background-color: #1abc9c; /* Color de fondo para el botón Iniciar */
         }
 
         .custom-buttons .btn-warning {
-            background-color: #c2c2c2; /* Color de fondo para el botón Pausar */
+            background-color: #FFA726; /* Color de fondo para el botón Pausar */
         }
 
         .custom-buttons .btn-secondary {
-            background-color: #f39c15; /* Color de fondo para el botón Pausar */
+            background-color: #FF8BA7; /* Color de fondo para el botón almuerzo */
         }
 
 
         .custom-buttons .btn-info {
-            background-color: #1abc9c; /* Color de fondo para el botón Continuar */
+            background-color: #A474A4; /* Color de fondo para el botón Continuar */
         }
 
         .custom-buttons .btn-danger {
@@ -435,7 +435,7 @@ $currentTime = get_current_time(); // Call the function
                                 <h6>Marca tu asistencia</h6>
 
                                 <div class="select-wrapper">
-                                    <select id="actionType">
+                                    <select id="tipoAccion">
                                         <option value="Entrada">Entrada</option>
                                         <option value="Salida">Salida</option>
                                     </select>
@@ -461,16 +461,16 @@ $currentTime = get_current_time(); // Call the function
 
                                     <div class="card-body">
                                     <h6>Horas a trabajar</h6>
-                                    <div class="clock" id="clock1">6:40:00</div>
+                                    <div class="clock" id="temporizador_trabajo">6:40:00</div>
                                     <br>
                                     <h6>Receso maximo </h6>
-                                    <div class="clock" id="clock2">20:00</div>
+                                    <div class="clock" id="temporizador_receso">20:00</div>
                                     <br>
                                     <h6>Tiempo almuerzo </h6>
-                                    <div class="clock" id="clock4">60:00</div>
+                                    <div class="clock" id="temporizador_almuerzo">60:00</div>
                                     <br>
                                     <h6>Pausas diarias</h6>
-                                    <div class="clock" id="clock3">0</div>
+                                    <div class="clock" id="pausas">0</div>
                                     
                                     </div>
                                     <!-- end card body -->
@@ -497,13 +497,13 @@ $currentTime = get_current_time(); // Call the function
                                 <div class="log" id="timerLog"></div>
                                 <br>
                                 <h6>Tiempo de receso:</h6>
-                                <div class="log" id="secondTimerLog"></div>
+                                <div class="log" id="recesoLog"></div>
                                 <br>
                                 <h6>Tiempo de almuerzo:</h6>
-                                <div class="log" id="lunchTimerLog"></div>
+                                <div class="log" id="almuerzoLog"></div>
                                 <br>
                                 <h6>Pausas diarias:</h6>
-                                <div class="log" id="dailyPauseLog"></div>
+                                <div class="log" id="pausasLog"></div>
                             </div>
 
 
@@ -532,11 +532,11 @@ $currentTime = get_current_time(); // Call the function
                                     
                                     <!-- Botones con funciones -->
                                     <div class="btn-group custom-buttons">
-                                    <input type="submit" class="btn btn-primary" id="startTimer" value="Iniciar" disabled>
+                                    <input type="submit" class="btn btn-primary" id="tiempoInicio" value="Iniciar" disabled>
                                     <input type="submit" class="btn btn-secondary" id="tiempoAlmuerzo" value="Almuerzo" disabled >
-                                    <input type="submit" class="btn btn-warning" id="pauseTimer" value="Pausar" disabled >
-                                    <input type="submit" class="btn btn-info" id="resumeTimer" value="Continuar" disabled>
-                                    <input type="submit" class="btn btn-danger" id="stopTimer" value="Finalizar" disabled>
+                                    <input type="submit" class="btn btn-warning" id="tiempoPausas" value="Pausar" disabled >
+                                    <input type="submit" class="btn btn-info" id="tiempoResumen" value="Continuar" disabled>
+                                    <input type="submit" class="btn btn-danger" id="tiempoFinalizacion" value="Finalizar" disabled>
                         
                                  </div>
 

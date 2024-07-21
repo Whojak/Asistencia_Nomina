@@ -1,5 +1,4 @@
 // Fetch server time
-// Fetch server time
 async function fetchServerTime() {
   try {
     const response = await fetch("time.php");
@@ -56,16 +55,25 @@ async function initializeLocalClock() {
   }
 }
 
-// Log attendance
+// Registrar asistencia
 async function logAsistencia() {
-  const actionType = document.getElementById("actionType").value;
+  const tipoAccion = document.getElementById("tipoAccion").value;
 
-  document.getElementById("startTimer").disabled = true;
+  // Habilitar o deshabilitar el botón según el tipo de acción
+  if (tipoAccion === "Entrada") {
+    document.getElementById("tiempoInicio").disabled = false;
+  } else if (tipoAccion === "Salida") {
+    document.getElementById("tiempoInicio").disabled = true;
+    document.getElementById("tiempoPausas").disabled = true;
+    document.getElementById("tiempoAlmuerzo").disabled = true;
+    document.getElementById("tiempoResumen").disabled = true;
+    document.getElementById("tiempoFinalizacion").disabled = false;
+  }
 
-  const response = await fetch(`log_time.php?actionType=${actionType}`);
+  const response = await fetch(`log_time.php?tipoAccion=${tipoAccion}`);
   if (!response.ok) {
-    console.error("Error logging time:", response.statusText);
-    document.getElementById("startTimer").disabled = false;
+    console.error("Error registrando la asistencia:", response.statusText);
+    document.getElementById("tiempoInicio").disabled = false;
     return;
   }
   const loggedTime = await response.text();
@@ -75,7 +83,10 @@ async function logAsistencia() {
   timeEntry.textContent = loggedTime;
   logElem.appendChild(timeEntry);
 
-  document.getElementById("startTimer").disabled = false;
+  // Habilitar el botón después de registrar la asistencia, si es necesario
+  if (tipoAccion !== "Salida") {
+    document.getElementById("tiempoInicio").disabled = false;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", initializeLocalClock);
@@ -88,7 +99,7 @@ let paused = false;
 const initialTime = 6 * 60 * 60 * 1000 + 40 * 60 * 1000;
 
 function updateTimerClock() {
-  const clockElem = document.getElementById("clock1");
+  const clockElem = document.getElementById("temporizador_trabajo");
   const timeParts = clockElem.textContent.split(":");
   let hours = parseInt(timeParts[0]);
   let minutes = parseInt(timeParts[1]);
@@ -96,7 +107,7 @@ function updateTimerClock() {
 
   if (seconds === 0 && minutes === 0 && hours === 0) {
     clearInterval(timerInterval);
-    logTimer("Finalizado", clockElem.textContent, "Timer1");
+    temporizadorLog("Finalizado", clockElem.textContent, "Timer1");
     return;
   }
 
@@ -119,7 +130,7 @@ function updateTimerClock() {
 }
 
 function initializeTimerClock() {
-  const clockElem = document.getElementById("clock1");
+  const clockElem = document.getElementById("temporizador_trabajo");
   const [initialHours, initialMinutes, initialSeconds] = [
     Math.floor(initialTime / (60 * 60 * 1000)),
     Math.floor((initialTime % (60 * 60 * 1000)) / (60 * 1000)),
@@ -134,86 +145,86 @@ function initializeTimerClock() {
     initialSeconds.toString().padStart(2, "0");
 }
 
-function startTimer() {
+function tiempoInicio() {
   clearInterval(timerInterval);
   startTime = new Date().getTime();
   timerInterval = setInterval(updateTimerClock, 1000);
 
-  document.getElementById("startTimer").disabled = true;
-  document.getElementById("pauseTimer").disabled = false;
-  document.getElementById("stopTimer").disabled = false;
+  document.getElementById("tiempoInicio").disabled = true;
+  document.getElementById("tiempoPausas").disabled = false;
+  document.getElementById("tiempoFinalizacion").disabled = false;
   document.getElementById("tiempoAlmuerzo").disabled = false;
 }
 
-function pauseTimer() {
+function tiempoPausas() {
   clearInterval(timerInterval);
   paused = true;
   pausedTime += new Date().getTime() - startTime;
 
   startSecondTimer();
 
-  document.getElementById("resumeTimer").disabled = false;
-  document.getElementById("pauseTimer").disabled = true;
-  document.getElementById("stopTimer").disabled = true;
+  document.getElementById("tiempoResumen").disabled = false;
+  document.getElementById("tiempoPausas").disabled = true;
+  document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
 
-  const clock3Elem = document.getElementById("clock3");
-  const currentPauseCount = parseInt(clock3Elem.textContent);
-  clock3Elem.textContent = currentPauseCount + 1;
+  const pausasElem = document.getElementById("pausas");
+  const currentPauseCount = parseInt(pausasElem.textContent);
+  pausasElem.textContent = currentPauseCount + 1;
 }
 
-function pauseTimer2() {
+function tiempoPausas2() {
   clearInterval(timerInterval);
   paused = true;
   pausedTime += new Date().getTime() - startTime;
 
-  document.getElementById("resumeTimer").disabled = false;
-  document.getElementById("pauseTimer").disabled = true;
-  document.getElementById("stopTimer").disabled = true;
+  document.getElementById("tiempoResumen").disabled = false;
+  document.getElementById("tiempoPausas").disabled = true;
+  document.getElementById("tiempoFinalizacion").disabled = true;
 
   document.getElementById("tiempoAlmuerzo").disabled = true;
 
-  const clock3Elem = document.getElementById("clock3");
-  const currentPauseCount = parseInt(clock3Elem.textContent);
-  clock3Elem.textContent = currentPauseCount + 1;
+  const pausasElem = document.getElementById("pausas");
+  const currentPauseCount = parseInt(pausasElem.textContent);
+  pausasElem.textContent = currentPauseCount + 1;
 }
 
-function resumeTimer() {
+function tiempoResumen() {
   paused = false;
   startTime = new Date().getTime() - pausedTime;
   timerInterval = setInterval(updateTimerClock, 1000);
   pauseSecondTimer();
   pauseLunchTimer();
 
-  document.getElementById("stopTimer").disabled = false;
-  document.getElementById("pauseTimer").disabled = false;
-  document.getElementById("resumeTimer").disabled = true;
+  document.getElementById("tiempoFinalizacion").disabled = false;
+  document.getElementById("tiempoPausas").disabled = false;
+  document.getElementById("tiempoResumen").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = false;
 }
 
-function stopTimer() {
+function tiempoFinalizacion() {
   clearInterval(timerInterval);
-  const clockElem = document.getElementById("clock1");
+  const clockElem = document.getElementById("temporizador_trabajo");
   const finalTime = clockElem.textContent;
-  logTimer("Horas de trabajo cumplidas", finalTime, "Timer1");
+  temporizadorLog("Horas de trabajo cumplidas", finalTime, "Timer1");
   clockElem.textContent = "06:40:00";
   stopSecondTimer();
   stopLunchTimer();
 
-  document.getElementById("startTimer").disabled = true;
-  document.getElementById("resumeTimer").disabled = true;
-  document.getElementById("pauseTimer").disabled = true;
-  document.getElementById("stopTimer").disabled = true;
+  document.getElementById("tiempoInicio").disabled = true;
+  document.getElementById("tiempoResumen").disabled = true;
+  document.getElementById("tiempoPausas").disabled = true;
+  document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
 
-  const clock3Elem = document.getElementById("clock3");
-  const dailyPauses = clock3Elem.textContent;
-  clock3Elem.textContent = "0";
+  const pausasElem = document.getElementById("pausas");
+  const dailyPauses = pausasElem.textContent;
+  pausasElem.textContent = "0";
 
-  fetch(`log_time.php?actionType=StopTimer&dailyPauses=${dailyPauses}`)
+  fetch(`log_time.php?tipoAccion=tiempoFinalizacion&dailyPauses=${dailyPauses}`)
     .then((response) => response.text())
     .then((loggedTime) => {
-      const pauseLogElem = document.getElementById("dailyPauseLog");
+      const pauseLogElem = document.getElementById("pausasLog");
       const pauseEntry = document.createElement("div");
       pauseEntry.textContent = loggedTime;
       pauseLogElem.appendChild(pauseEntry);
@@ -221,9 +232,9 @@ function stopTimer() {
     .catch((error) => console.error("Error logging daily pauses:", error));
 }
 
-async function logTimer(action, time, timerType) {
+async function temporizadorLog(action, time, timerType) {
   const response = await fetch(
-    `log_time.php?action=${action}&time=${time}&actionType=${timerType}`
+    `log_time.php?action=${action}&time=${time}&tipoAccion=${timerType}`
   );
   if (!response.ok) {
     console.error("Error logging timer:", response.statusText);
@@ -234,20 +245,24 @@ async function logTimer(action, time, timerType) {
     timerType === "Timer1"
       ? "timerLog"
       : timerType === "Timer2"
-      ? "secondTimerLog"
+      ? "recesoLog"
       : timerType === "LunchTimer" // Check for LunchTimer
-      ? "lunchTimerLog"
-      : "dailyPauseLog" // Fallback for other logs
+      ? "almuerzoLog"
+      : "pausasLog" // Fallback for other logs
   );
 
   const timeEntry = document.createElement("div");
   timeEntry.textContent = loggedTime;
   logElem.appendChild(timeEntry);
 }
-document.getElementById("startTimer").addEventListener("click", startTimer);
-document.getElementById("pauseTimer").addEventListener("click", pauseTimer);
-document.getElementById("resumeTimer").addEventListener("click", resumeTimer);
-document.getElementById("stopTimer").addEventListener("click", stopTimer);
+document.getElementById("tiempoInicio").addEventListener("click", tiempoInicio);
+document.getElementById("tiempoPausas").addEventListener("click", tiempoPausas);
+document
+  .getElementById("tiempoResumen")
+  .addEventListener("click", tiempoResumen);
+document
+  .getElementById("tiempoFinalizacion")
+  .addEventListener("click", tiempoFinalizacion);
 
 document.addEventListener("DOMContentLoaded", initializeTimerClock);
 
@@ -259,14 +274,14 @@ let secondPaused = false;
 const secondInitialTime = 20 * 60 * 1000;
 
 function updateSecondTimerClock() {
-  const clockElem = document.getElementById("clock2");
+  const clockElem = document.getElementById("temporizador_receso");
   const timeParts = clockElem.textContent.split(":");
   let minutes = parseInt(timeParts[0]);
   let seconds = parseInt(timeParts[1]);
 
   if (seconds === 0 && minutes === 0) {
     clearInterval(secondTimerInterval);
-    logTimer("Finalizado", clockElem.textContent, "Timer2");
+    temporizadorLog("Finalizado", clockElem.textContent, "Timer2");
     return;
   }
 
@@ -283,7 +298,7 @@ function updateSecondTimerClock() {
 }
 
 function initializeSecondTimerClock() {
-  const clockElem = document.getElementById("clock2");
+  const clockElem = document.getElementById("temporizador_receso");
   const [initialMinutes, initialSeconds] = [
     Math.floor(secondInitialTime / (60 * 1000)),
     Math.floor((secondInitialTime % (60 * 1000)) / 1000),
@@ -315,22 +330,22 @@ function resumeSecondTimer() {
 
 function stopSecondTimer() {
   clearInterval(secondTimerInterval);
-  const clockElem = document.getElementById("clock2");
+  const clockElem = document.getElementById("temporizador_receso");
   const finalTime = clockElem.textContent;
-  logTimer("Tiempo de receso cumplido", finalTime, "Timer2");
+  temporizadorLog("Tiempo de receso cumplido", finalTime, "Timer2");
   clockElem.textContent = "20:00";
 }
 
 async function logSecondTimer(action, time) {
   const response = await fetch(
-    `log_time.php?action=${action}&time=${time}&actionType=Timer2`
+    `log_time.php?action=${action}&time=${time}&tipoAccion=Timer2`
   );
   if (!response.ok) {
     console.error("Error logging second timer:", response.statusText);
     return;
   }
   const loggedTime = await response.text();
-  const logElem = document.getElementById("secondTimerLog");
+  const logElem = document.getElementById("recesoLog");
 
   const timeEntry = document.createElement("div");
   timeEntry.textContent = loggedTime;
@@ -347,14 +362,14 @@ let lunchPaused = false;
 const lunchInitialTime = 60 * 60 * 1000; // 60 minutes
 
 function updateLunchTimerClock() {
-  const clockElem = document.getElementById("clock4");
+  const clockElem = document.getElementById("temporizador_almuerzo");
   const timeParts = clockElem.textContent.split(":");
   let minutes = parseInt(timeParts[0]);
   let seconds = parseInt(timeParts[1]);
 
   if (seconds === 0 && minutes === 0) {
     clearInterval(lunchTimerInterval);
-    logTimer("Finalizado", clockElem.textContent, "LunchTimer");
+    temporizadorLog("Finalizado", clockElem.textContent, "LunchTimer");
     return;
   }
 
@@ -371,7 +386,7 @@ function updateLunchTimerClock() {
 }
 
 function initializeLunchTimerClock() {
-  const clockElem = document.getElementById("clock4");
+  const clockElem = document.getElementById("temporizador_almuerzo");
   const [initialMinutes, initialSeconds] = [
     Math.floor(lunchInitialTime / (60 * 1000)),
     Math.floor((lunchInitialTime % (60 * 1000)) / 1000),
@@ -388,23 +403,13 @@ function startLunchTimer() {
   lunchStartTime = new Date().getTime();
   lunchTimerInterval = setInterval(updateLunchTimerClock, 1000);
 
-  pauseTimer2(); // Pausar el temporizador principal cuando inicie el almuerzo
-
-  //document.getElementById("resumeLunchTimer").disabled = false;
-  //document.getElementById("pauseLunchTimer").disabled = true;
-  //document.getElementById("stopLunchTimer").disabled = true;
-
-  // document.getElementById("tiempoAlmuerzo").disabled = true;
+  tiempoPausas2();
 }
 
 function pauseLunchTimer() {
   clearInterval(lunchTimerInterval);
   lunchPaused = true;
   lunchPausedTime += new Date().getTime() - lunchStartTime;
-
-  // document.getElementById("resumeLunchTimer").disabled = false;
-  //document.getElementById("pauseLunchTimer").disabled = true;
-  //document.getElementById("stopLunchTimer").disabled = true;
 }
 
 function resumeLunchTimer() {
@@ -412,18 +417,14 @@ function resumeLunchTimer() {
   lunchStartTime = new Date().getTime() - lunchPausedTime;
   lunchTimerInterval = setInterval(updateLunchTimerClock, 1000);
 
-  resumeTimer(); // Reanudar el temporizador principal cuando se pausa el almuerzo
-
-  // document.getElementById("resumeLunchTimer").disabled = true;
-  //document.getElementById("pauseLunchTimer").disabled = false;
-  //document.getElementById("stopLunchTimer").disabled = false;
+  tiempoResumen();
 }
 
 function stopLunchTimer() {
   clearInterval(lunchTimerInterval);
-  const clockElem = document.getElementById("clock4");
+  const clockElem = document.getElementById("temporizador_almuerzo");
   const finalTime = clockElem.textContent;
-  logTimer("Finalizado", finalTime, "LunchTimer");
+  temporizadorLog("Finalizado", finalTime, "LunchTimer");
   clockElem.textContent = "60:00"; // Reset lunch timer to 60 minutes
 }
 
@@ -441,8 +442,8 @@ document
   .addEventListener("click", stopLunchTimer);
 
 // Pausar temporizador de almuerzo al continuar el principal
-document.getElementById("resumeTimer").addEventListener("click", () => {
-  resumeTimer();
+document.getElementById("tiempoResumen").addEventListener("click", () => {
+  tiempoResumen();
   pauseLunchTimer();
 });
 

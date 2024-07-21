@@ -1,60 +1,60 @@
 <?php
 date_default_timezone_set('America/El_Salvador');
 
-$actionType = isset($_GET['actionType']) ? $_GET['actionType'] : '';
+$tipoAccion = isset($_GET['tipoAccion']) ? $_GET['tipoAccion'] : '';
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $time = isset($_GET['time']) ? $_GET['time'] : '';
-$dailyPauses = isset($_GET['dailyPauses']) ? $_GET['dailyPauses'] : 0;
+$pausasDiarias = isset($_GET['dailyPauses']) ? $_GET['dailyPauses'] : 0;
 
-$logEntry = '';
+$entradaLog = '';
 
-function calculateTimeDifference($startTime, $endTime, $isMinutesFormat = false) {
-    if ($isMinutesFormat) {
-        $start = DateTime::createFromFormat('i:s', $startTime);
-        $end = DateTime::createFromFormat('i:s', $endTime);
+function calculateTimeDifference($tiempoInicio, $tiempoFinal, $minutoFormato = false) {
+    if ($minutoFormato) {
+        $inicio = DateTime::createFromFormat('i:s', $tiempoInicio);
+        $final = DateTime::createFromFormat('i:s', $tiempoFinal);
     } else {
-        $start = DateTime::createFromFormat('H:i:s', $startTime);
-        $end = DateTime::createFromFormat('H:i:s', $endTime);
+        $inicio = DateTime::createFromFormat('H:i:s', $tiempoInicio);
+        $final = DateTime::createFromFormat('H:i:s', $tiempoFinal);
     }
 
-    if (!$start || !$end) {
+    if (!$inicio || !$final) {
         return 'Invalid time format';
     }
 
-    $interval = $start->diff($end);
-    return $interval->format('%H:%I:%S');
+    $intervalo = $inicio->diff($final);
+    return $intervalo->format('%H:%I:%S');
 }
 
-switch ($actionType) {
+switch ($tipoAccion) {
     case 'Entrada':
-        $loggedTime = date('H:i:s');
-        $logEntry = "Entrada: $loggedTime";
+        $tiempoRegistrado = date('H:i:s');
+        $entradaLog = "Entrada: $tiempoRegistrado";
         break;
     case 'Salida':
-        $loggedTime = date('H:i:s');
-        $logEntry = "Salida: $loggedTime";
+        $tiempoRegistrado = date('H:i:s');
+        $entradaLog = "Salida: $tiempoRegistrado";
         break;
     case 'Timer1':
-        $initialTime = '06:40:00';
-        $timeDifference = calculateTimeDifference($initialTime, $time);
-        $logEntry = "Horas de trabajo cumplidas: $timeDifference  Tiempo a reponer $time";
+        $tiempoInicial = '06:40:00';
+        $tiempoDiferencia = calculateTimeDifference($tiempoInicial, $time);
+        $entradaLog = "Horas de trabajo cumplidas: $tiempoDiferencia  Tiempo a reponer $time";
         break;
     case 'Timer2':
-        $initialTime = '20:00';
-        $timeDifference = calculateTimeDifference($initialTime, $time, true);
-        $logEntry = "Receso cumplido: $timeDifference  Tiempo adicional $time";
+        $tiempoInicial = '20:00';
+        $tiempoDiferencia = calculateTimeDifference($tiempoInicial, $time, true);
+        $entradaLog = "Receso cumplido: $tiempoDiferencia  Tiempo adicional $time";
         break;
     case 'LunchTimer':
-        $initialTime = '60:00';
-        $timeDifference = calculateTimeDifference($initialTime, $time, true);   
-        $logEntry = "Tiempo de almuerzo: $timeDifference  Tiempo no cumplido de almuerzo: $time";       
+        $tiempoInicial = '60:00';
+        $tiempoDiferencia = calculateTimeDifference($tiempoInicial, $time, true);   
+        $entradaLog = "Tiempo de almuerzo: $tiempoDiferencia  Tiempo no cumplido de almuerzo: $time";       
         break;    
-    case 'StopTimer':
-        $logEntry = "Pausas diarias: $dailyPauses";
+    case 'tiempoFinalizacion':
+        $entradaLog = "Pausas diarias: $pausasDiarias";
         break;
     default:
-        $logEntry = "Acción no reconocida";
+        $entradaLog = "Acción no reconocida";
 }
 
-echo $logEntry;
+echo $entradaLog;
 ?>
