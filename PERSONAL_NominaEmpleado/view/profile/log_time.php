@@ -37,7 +37,7 @@ switch ($tipoAccion) {
     case 'Timer1':
         $tiempoInicial = '06:40:00';
         $tiempoDiferencia = calculateTimeDifference($tiempoInicial, $time);
-        $entradaLog = "Horas de trabajo cumplidas: $tiempoDiferencia  Tiempo a reponer $time";
+        $entradaLog = "Horas de trabajo cumplidas: $tiempoDiferencia  Tiempo a reponer: $time";
         break;
     case 'Timer2':
         $tiempoInicial = '20:00';
@@ -47,7 +47,7 @@ switch ($tipoAccion) {
     case 'LunchTimer':
         $tiempoInicial = '60:00';
         $tiempoDiferencia = calculateTimeDifference($tiempoInicial, $time, true);   
-        $entradaLog = "Tiempo de almuerzo: $tiempoDiferencia  Tiempo no cumplido de almuerzo: $time";       
+        $entradaLog = "Tiempo de almuerzo realizado: $tiempoDiferencia ";       
         break;    
     case 'tiempoFinalizacion':
         $entradaLog = "Pausas diarias: $pausasDiarias";

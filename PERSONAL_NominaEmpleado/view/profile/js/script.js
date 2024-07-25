@@ -64,9 +64,17 @@ async function logAsistencia() {
     document.getElementById("tiempoInicio").disabled = false;
   } else if (tipoAccion === "Salida") {
     document.getElementById("tiempoInicio").disabled = true;
+    document.getElementById("tiempoInicio").style.backgroundColor = "grey";
     document.getElementById("tiempoPausas").disabled = true;
+    document.getElementById("tiempoPausas").style.backgroundColor = "grey";
+
     document.getElementById("tiempoAlmuerzo").disabled = true;
+    document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
     document.getElementById("tiempoResumen").disabled = true;
+    document.getElementById("tiempoResumen").style.backgroundColor = "grey";
+    document.getElementById("tiempoFinalizacion").style.backgroundColor =
+      "#e74c3c";
+
     document.getElementById("tiempoFinalizacion").disabled = false;
   }
 
@@ -152,8 +160,11 @@ function tiempoInicio() {
 
   document.getElementById("tiempoInicio").disabled = true;
   document.getElementById("tiempoPausas").disabled = false;
-  document.getElementById("tiempoFinalizacion").disabled = false;
   document.getElementById("tiempoAlmuerzo").disabled = false;
+
+  document.getElementById("tiempoInicio").style.backgroundColor = "grey";
+  document.getElementById("tiempoResumen").style.backgroundColor = "grey";
+  document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
 }
 
 function tiempoPausas() {
@@ -168,6 +179,11 @@ function tiempoPausas() {
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
 
+  document.getElementById("tiempoPausas").style.backgroundColor = "grey";
+  document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
+  document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
+  document.getElementById("tiempoResumen").style.backgroundColor = "#A474A4";
+
   const pausasElem = document.getElementById("pausas");
   const currentPauseCount = parseInt(pausasElem.textContent);
   pausasElem.textContent = currentPauseCount + 1;
@@ -181,8 +197,12 @@ function tiempoPausas2() {
   document.getElementById("tiempoResumen").disabled = false;
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
-
   document.getElementById("tiempoAlmuerzo").disabled = true;
+
+  document.getElementById("tiempoPausas").style.backgroundColor = "grey";
+  document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
+  document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
+  document.getElementById("tiempoResumen").style.backgroundColor = "#A474A4";
 
   const pausasElem = document.getElementById("pausas");
   const currentPauseCount = parseInt(pausasElem.textContent);
@@ -196,10 +216,15 @@ function tiempoResumen() {
   pauseSecondTimer();
   pauseLunchTimer();
 
-  document.getElementById("tiempoFinalizacion").disabled = false;
+  //document.getElementById("tiempoFinalizacion").disabled = false;
   document.getElementById("tiempoPausas").disabled = false;
   document.getElementById("tiempoResumen").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = false;
+
+  document.getElementById("tiempoPausas").style.backgroundColor = "#FFA726";
+
+  document.getElementById("tiempoAlmuerzo").style.backgroundColor = "#FF8BA7";
+  document.getElementById("tiempoResumen").style.backgroundColor = "grey";
 }
 
 function tiempoFinalizacion() {
@@ -216,6 +241,12 @@ function tiempoFinalizacion() {
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
+
+  document.getElementById("tiempoInicio").style.backgroundColor = "#1abc9c";
+  document.getElementById("tiempoResumen").style.backgroundColor = " #A474A4";
+  document.getElementById("tiempoPausas").style.backgroundColor = "#FFA726";
+
+  document.getElementById("tiempoAlmuerzo").style.backgroundColor = "#FF8BA7";
 
   const pausasElem = document.getElementById("pausas");
   const dailyPauses = pausasElem.textContent;

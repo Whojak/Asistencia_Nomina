@@ -282,7 +282,7 @@ $currentTime = get_current_time(); // Call the function
 
  .select-wrapper {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         margin-bottom: 10px;
     }
 
@@ -411,6 +411,7 @@ $currentTime = get_current_time(); // Call the function
             }
         }
 
+       
 </style>
 
 
@@ -419,7 +420,7 @@ $currentTime = get_current_time(); // Call the function
 
                         <!-- CARTA 1 -->
                     <div class="col-xl-4">
-                        <div class="card text-center">
+                        <div class="card text-left">
                             <div class="card-header align-items-center d-flex justify-content-center">
                                 <h3 class="card-title mb-0">Registrar asistencia</h3>
                             </div><!-- end card header -->
@@ -428,9 +429,11 @@ $currentTime = get_current_time(); // Call the function
                                 <h6>Hora local:</h6>
                                 <div class="clock" id="reloj">Loading...</div>
                                 <br>
-                                <h6>Meta a cumplir:</h6>
-                                <div class="clock" >8:00:00</div>
+                                <hr>
+                                <h6 style="color: red; ">Meta a cumplir</h6>
+                                <div class="clock" style="color: red; ">8:00:00 Horas</div>
                                 <br>
+                                <hr>
 
                                 <h6>Marca tu asistencia</h6>
 
@@ -451,26 +454,36 @@ $currentTime = get_current_time(); // Call the function
 
                             <!-- CARTA 2 -->
                             <div class="col-xl-4">
+                            <div class="card text-left">
                             <div class="card text-center">
                                     <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Indicadores a cumplir del dia de hoy</h4>
+                                        <h4 class="card-title mb-0 flex-grow-1">Indicadores a cumplir de Hoy</h4>
                                         <div class="flex-shrink-0">
+                                            </div>
                                         
                                         </div>
                                     </div><!-- end card header -->
 
                                     <div class="card-body">
                                     <h6>Horas a trabajar</h6>
-                                    <div class="clock" id="temporizador_trabajo">6:40:00</div>
+                                    <div class="clock" id="temporizador_trabajo">6:40:00 </div>
                                     <br>
+                                    <hr>
                                     <h6>Receso maximo </h6>
                                     <div class="clock" id="temporizador_receso">20:00</div>
                                     <br>
+                                    <hr>
                                     <h6>Tiempo almuerzo </h6>
                                     <div class="clock" id="temporizador_almuerzo">60:00</div>
                                     <br>
+                                    <hr>
                                     <h6>Pausas diarias</h6>
                                     <div class="clock" id="pausas">0</div>
+                                    <br>
+                                    <hr>
+                                    <h6 style="color: red; text-align: center;">Total Horas</h6>
+                                    <div class="clock" style="color: red; text-align: center;">8:00:00 Horas</div>
+                                    
                                     
                                     </div>
                                     <!-- end card body -->
@@ -481,11 +494,13 @@ $currentTime = get_current_time(); // Call the function
 
                             <!-- CARTA 3 -->
                             <div class="col-xl-4">
+                            <div class="card text-left">
                             <div class="card text-center">
                                     <div class="card-header align-items-center d-flex">
                                         <h4 class="card-title mb-0 flex-grow-1">Reporte del dia</h4>
                                         <div class="flex-shrink-0">
                                         
+                                        </div>
                                         </div>
                                     </div><!-- end card header -->
 
@@ -493,15 +508,19 @@ $currentTime = get_current_time(); // Call the function
                                 <h6>Asistencia:</h6>
                                 <div class="log" id="asistenciaLog"></div>
                                 <br>
+                                <hr>
                                 <h6>Horario laboral:</h6>
                                 <div class="log" id="timerLog"></div>
                                 <br>
+                                <hr>
                                 <h6>Tiempo de receso:</h6>
                                 <div class="log" id="recesoLog"></div>
                                 <br>
+                                <hr>
                                 <h6>Tiempo de almuerzo:</h6>
                                 <div class="log" id="almuerzoLog"></div>
                                 <br>
+                                <hr>
                                 <h6>Pausas diarias:</h6>
                                 <div class="log" id="pausasLog"></div>
                             </div>
