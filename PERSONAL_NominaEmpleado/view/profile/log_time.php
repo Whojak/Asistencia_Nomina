@@ -1,4 +1,6 @@
 <?php
+session_start(); // Inicia la sesión para acceder a las variables de sesión
+
 date_default_timezone_set('America/El_Salvador');
 
 $tipoAccion = isset($_GET['tipoAccion']) ? $_GET['tipoAccion'] : '';
@@ -7,6 +9,7 @@ $time = isset($_GET['time']) ? $_GET['time'] : '';
 $pausasDiarias = isset($_GET['dailyPauses']) ? $_GET['dailyPauses'] : 0;
 
 $entradaLog = '';
+$employeeId = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Obtén el ID del empleado desde la sesión
 
 function calculateTimeDifference($tiempoInicio, $tiempoFinal, $minutoFormato = false) {
     if ($minutoFormato) {
@@ -29,6 +32,35 @@ switch ($tipoAccion) {
     case 'Entrada':
         $tiempoRegistrado = date('H:i:s');
         $entradaLog = "Entrada: $tiempoRegistrado";
+
+        // Insertar en la API si es entrada
+        if ($employeeId) {
+            $data = [
+                'employee_id' => $employeeId,
+                'date' => date('Y-m-d'),
+                'time_entry' => $tiempoRegistrado
+            ];
+
+            $ch = curl_init('http://127.0.0.1:8000/api/assistence');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ]);
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            if ($response === false) {
+                $entradaLog .= " - Error al registrar la asistencia.";
+            } else {
+                $entradaLog .= " - Asistencia registrada exitosamente.";
+            }
+        } else {
+            $entradaLog .= " - ID de empleado no encontrado.";
+        }
         break;
     case 'Salida':
         $tiempoRegistrado = date('H:i:s');

@@ -11,6 +11,25 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 // Ejecutar la solicitud GET
 $response = curl_exec($ch);
 
+
+
+session_start();
+$employee_id_session = $_SESSION['id'];
+
+echo $employee_id_session;
+
+
+  // Función para obtener la fecha actual del sistema
+  function getSystemDate() {
+    return date('Y-m-d');
+}
+
+
+
+$system_date = getSystemDate();
+
+
+
 if ($response === FALSE) {
     die('Error occurred: ' . curl_error($ch));
 }
@@ -100,9 +119,13 @@ if (is_array($data)) {
         <input type="text" id="remaining_lunch_hour" name="remaining_lunch_hour" required><br><br>
 
         <label for="date">Fecha:</label><br>
-        <input type="date" id="date" name="date" required><br><br>
+        <input type="text" id="date" name="date" required><br><br>
 
-        <button type="submit">Enviar</button>
+        <button type="submit" name="action" value="insert">Enviar</button>
+        <button type="submit" name="action" value="update">Actualizar</button>
     </form>
 </body>
 </html>
+
+
+
