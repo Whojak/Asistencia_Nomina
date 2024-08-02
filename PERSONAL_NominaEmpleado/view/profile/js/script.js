@@ -62,7 +62,10 @@ async function logAsistencia() {
   // Habilitar o deshabilitar el botón según el tipo de acción
   if (tipoAccion === "Entrada") {
     document.getElementById("tiempoInicio").disabled = false;
+    document.getElementById("btn_asistenciaLog").disabled = true;
+    document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
   } else if (tipoAccion === "Salida") {
+    tiempoPausaSalida();
     document.getElementById("tiempoInicio").disabled = true;
     document.getElementById("tiempoInicio").style.backgroundColor = "grey";
     document.getElementById("tiempoPausas").disabled = true;
@@ -162,6 +165,11 @@ function tiempoInicio() {
   document.getElementById("tiempoPausas").disabled = false;
   document.getElementById("tiempoAlmuerzo").disabled = false;
 
+  document.getElementById("btn_asistenciaLog").disabled = false;
+
+  document.getElementById("btn_asistenciaLog").style.backgroundColor =
+    "#1abc9c";
+
   document.getElementById("tiempoInicio").style.backgroundColor = "grey";
   document.getElementById("tiempoResumen").style.backgroundColor = "grey";
   document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
@@ -178,7 +186,9 @@ function tiempoPausas() {
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
+  document.getElementById("btn_asistenciaLog").disabled = true;
 
+  document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
   document.getElementById("tiempoPausas").style.backgroundColor = "grey";
   document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
   document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
@@ -187,6 +197,12 @@ function tiempoPausas() {
   const pausasElem = document.getElementById("pausas");
   const currentPauseCount = parseInt(pausasElem.textContent);
   pausasElem.textContent = currentPauseCount + 1;
+}
+
+function tiempoPausaSalida() {
+  clearInterval(timerInterval);
+  paused = true;
+  pausedTime += new Date().getTime() - startTime;
 }
 
 function tiempoPausas2() {
@@ -198,7 +214,9 @@ function tiempoPausas2() {
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
+  document.getElementById("btn_asistenciaLog").disabled = true;
 
+  document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
   document.getElementById("tiempoPausas").style.backgroundColor = "grey";
   document.getElementById("tiempoFinalizacion").style.backgroundColor = "grey";
   document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
@@ -220,6 +238,10 @@ function tiempoResumen() {
   document.getElementById("tiempoPausas").disabled = false;
   document.getElementById("tiempoResumen").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = false;
+  document.getElementById("btn_asistenciaLog").disabled = false;
+
+  document.getElementById("btn_asistenciaLog").style.backgroundColor =
+    "#1abc9c";
 
   document.getElementById("tiempoPausas").style.backgroundColor = "#FFA726";
 
@@ -241,6 +263,13 @@ function tiempoFinalizacion() {
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
+
+  document.getElementById("btn_descargar").disabled = false;
+  document.getElementById("btn_asistenciaLog").disabled = true;
+  document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
+
+  document.getElementById("btn_descargar").style.backgroundColor = "#1abc9c";
+  document.getElementById("btn_descargar").style.pointerEvents = "auto";
 
   document.getElementById("tiempoInicio").style.backgroundColor = "#1abc9c";
   document.getElementById("tiempoResumen").style.backgroundColor = " #A474A4";

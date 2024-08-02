@@ -319,6 +319,35 @@ $currentTime = get_current_time(); // Call the function
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
+
+     /* Estilos para el botón de descarga */
+     .btn-assistance1 {
+        display: inline-block;
+        width: 120px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        color: #fff; /* Texto blanco */
+        background-color: #1abc9c; /* Fondo verde */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+            /* Estilo para los botones deshabilitados */
+        .btn-assistance1:disabled {
+            background-color: grey; /* Fondo gris */
+            pointer-events: none; /* Anula el hover */
+        }
+        
+
+
+        .btn-assistance1:hover {
+                background-color: #16a085;
+                transform: scale(1.05);
+            }
+
     .btn-assistance:hover {
         background-color: #16a085;
         transform: scale(1.05);
@@ -444,7 +473,8 @@ $currentTime = get_current_time(); // Call the function
                                     </select>
                                 </div>
                                
-                                <button class="btn-assistance" onclick="logAsistencia()">Asistencia</button>
+                                <button class="btn-assistance" onclick="logAsistencia()" id="btn_asistenciaLog" >Asistencia</button>
+                                
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div>
@@ -523,6 +553,13 @@ $currentTime = get_current_time(); // Call the function
                                 <hr>
                                 <h6>Pausas diarias:</h6>
                                 <div class="log" id="pausasLog"></div>
+                                <hr>
+                                <h6 style="text-align: center;" >Descargar reporte de Hoy</h6>
+                                <div style="display: flex; justify-content: center; align-items: center; height: 50px;">
+                               
+                                <button class="btn-assistance1"  id="btn_descargar" disabled >Descargar</button>
+
+                                </div>
                             </div>
 
 
