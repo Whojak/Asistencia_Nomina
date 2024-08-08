@@ -319,6 +319,10 @@ $currentTime = get_current_time(); // Call the function
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
+.btn-assistance:hover {
+        background-color: #16a085;
+        transform: scale(1.05);
+    }
 
      /* Estilos para el botón de descarga */
      .btn-assistance1 {
@@ -348,10 +352,32 @@ $currentTime = get_current_time(); // Call the function
                 transform: scale(1.05);
             }
 
-    .btn-assistance:hover {
-        background-color: #16a085;
-        transform: scale(1.05);
+      .btn-assistance2 {
+        display: inline-block;
+        width: 120px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        color: #fff; /* Texto blanco */
+        background-color: #1abc9c; /* Fondo verde */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
     }
+
+            /* Estilo para los botones deshabilitados */
+        .btn-assistance2:disabled {
+            background-color: grey; /* Fondo gris */
+            pointer-events: none; /* Anula el hover */
+        }
+        
+
+
+        .btn-assistance2:hover {
+                background-color: #16a085;
+                transform: scale(1.05);
+            }
 
     /* Estilos adicionales para centrar todo el contenido */
     .card.text-center .card-header, 
@@ -475,7 +501,19 @@ $currentTime = get_current_time(); // Call the function
                                
                                 <button class="btn-assistance" onclick="logAsistencia()" id="btn_asistenciaLog" >Asistencia</button>
                                 
-                            </div><!-- end card body -->
+                            
+                            <hr>
+
+                            <h6>Justificacion asistencia</h6>
+
+                            <div class="form-group">
+                                <textarea class="form-control" id="justificacion_txt" rows="3" placeholder="Escribe tu justificación aquí" disabled require></textarea>
+                            </div>
+                            <br>
+
+                            <button class="btn-assistance2" id="btn_justificacion" disabled onclick="enviarJustificacion()">Enviar</button>
+
+                          </div><!-- end card body -->
                         </div><!-- end card -->
                     </div>
 

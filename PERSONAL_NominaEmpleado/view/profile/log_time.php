@@ -177,13 +177,15 @@ switch ($tipoAccion) {
                 $existingRecord['time_entry'] = isset($_SESSION['time_entry']) ? $_SESSION['time_entry'] : $existingRecord['time_entry'];
                 $existingRecord['time_exit'] = isset($_SESSION['time_exit']) ? $_SESSION['time_exit'] : $existingRecord['time_exit'];
 
+
                 // Actualizar solo los campos de work_completed, time_to_recover, etc.
                 $existingRecord['work_completed'] = $_SESSION['work_completed'];
                 $existingRecord['time_to_recover'] = $_SESSION['time_to_recover'];
                 $existingRecord['break_completed'] = $_SESSION['break_completed'];
-                $existingRecord['additional_time'] = $_SESSION['additional_time'];
-                $existingRecord['lunch_time'] = $_SESSION['lunch_time'];
+                $existingRecord['additional_time'] = $_SESSION['additional_time'];  
                 $existingRecord['dealy_breaks'] = $_SESSION['daily_breaks'];
+                $existingRecord['lunch_time'] = $_SESSION['lunch_time'];
+                $existingRecord['remaining_lunch_hour'] = $_SESSION['justificacion'];
 
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -213,4 +215,31 @@ switch ($tipoAccion) {
 }
 
 echo $entradaLog;
+
+
+
+// Nueva función para actualizar remaining_lunch_hour
+function actualizarJustificacion() {
+    global $employeeId;
+
+    if ($employeeId) {
+        $justificacion = isset($_POST['justificacion']) ? $_POST['justificacion'] : '';
+
+        if (!empty($justificacion)) {
+            // Guardar la justificación en una variable de sesión
+            $_SESSION['justificacion'] = $justificacion;
+
+            echo "Justificación almacenada en la sesión.";
+        } else {
+            echo "Justificación vacía.";
+        }
+    } else {
+        echo "ID de empleado no encontrado.";
+    }
+}
+
+// Verificar si se ha enviado la solicitud para actualizar justificación
+if (isset($_POST['actualizarJustificacion'])) {
+    actualizarJustificacion();
+}
 ?>

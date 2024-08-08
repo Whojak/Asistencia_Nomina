@@ -70,6 +70,14 @@ async function logAsistencia() {
     document.getElementById("tiempoInicio").style.backgroundColor = "grey";
     document.getElementById("tiempoPausas").disabled = true;
     document.getElementById("tiempoPausas").style.backgroundColor = "grey";
+    document.getElementById("btn_asistenciaLog").disabled = true;
+    document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
+    document.getElementById("btn_justificacion").style.backgroundColor =
+      "#1abc9c";
+    document.getElementById("btn_justificacion").style.pointerEvents = "auto";
+    document.getElementById("btn_justificacion").disabled = false;
+
+    document.getElementById("justificacion_txt").disabled = false;
 
     document.getElementById("tiempoAlmuerzo").disabled = true;
     document.getElementById("tiempoAlmuerzo").style.backgroundColor = "grey";
@@ -263,13 +271,14 @@ function tiempoFinalizacion() {
   document.getElementById("tiempoPausas").disabled = true;
   document.getElementById("tiempoFinalizacion").disabled = true;
   document.getElementById("tiempoAlmuerzo").disabled = true;
-
   document.getElementById("btn_descargar").disabled = false;
-  document.getElementById("btn_asistenciaLog").disabled = true;
-  document.getElementById("btn_asistenciaLog").style.backgroundColor = "grey";
-
   document.getElementById("btn_descargar").style.backgroundColor = "#1abc9c";
   document.getElementById("btn_descargar").style.pointerEvents = "auto";
+
+  document.getElementById("btn_justificacion").style.backgroundColor = "grey";
+  document.getElementById("btn_justificacion").style.pointerEvents = "none";
+  document.getElementById("btn_justificacion").disabled = true;
+  document.getElementById("justificacion_txt").disabled = true;
 
   document.getElementById("tiempoInicio").style.backgroundColor = "#1abc9c";
   document.getElementById("tiempoResumen").style.backgroundColor = " #A474A4";
@@ -486,6 +495,29 @@ function stopLunchTimer() {
   const finalTime = clockElem.textContent;
   temporizadorLog("Finalizado", finalTime, "LunchTimer");
   clockElem.textContent = "60:00"; // Reset lunch timer to 60 minutes
+}
+
+function enviarJustificacion() {
+  var justificacion = document.getElementById("justificacion_txt").value;
+
+  var formData = new FormData();
+  formData.append("justificacion", justificacion);
+  formData.append("actualizarJustificacion", true);
+
+  document.getElementById("btn_justificacion").style.backgroundColor = "grey";
+  document.getElementById("btn_justificacion").style.pointerEvents = "none";
+  document.getElementById("btn_justificacion").disabled = true;
+
+  document.getElementById("justificacion_txt").disabled = true;
+
+  fetch("log_time.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
 document
