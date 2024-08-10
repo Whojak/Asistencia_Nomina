@@ -1,4 +1,6 @@
 <?php
+use Dompdf\Dompdf;
+
 session_start(); // Inicia la sesión para acceder a las variables de sesión
 
 date_default_timezone_set('America/El_Salvador');
@@ -32,18 +34,33 @@ switch ($tipoAccion) {
     case 'Entrada':
         $tiempoRegistrado = date('H:i:s');
         $entradaLog = "Entrada: $tiempoRegistrado";
-
+    
+        // Función para generar un token de 9 dígitos
+        function generateToken() {
+            $prefix = "FEH";
+            $randomDigits = '';
+            for ($i = 0; $i < 6; $i++) {
+                $randomDigits .= mt_rand(0, 9);
+            }
+            return $prefix . $randomDigits;
+        }
+    
+        // Generar el token y guardarlo en una variable de sesión
+        $token = generateToken();
+        $_SESSION['token'] = $token;
+    
         // Insertar en la API si es entrada
         if ($employeeId) {
             // Guardar el time_entry en una variable de sesión
             $_SESSION['time_entry'] = $tiempoRegistrado;
-
+    
             $data = [
                 'employee_id' => $employeeId,
                 'date' => date('Y-m-d'),
-                'time_entry' => $tiempoRegistrado
+                'time_entry' => $tiempoRegistrado,
+                'token' => $token 
             ];
-
+    
             $ch = curl_init('http://127.0.0.1:8000/api/assistence');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
@@ -52,10 +69,10 @@ switch ($tipoAccion) {
                 'Content-Type: application/json',
                 'Accept: application/json'
             ]);
-
+    
             $response = curl_exec($ch);
             curl_close($ch);
-
+    
             if ($response === false) {
                 $entradaLog .= " - Error al registrar la asistencia.";
             }
@@ -63,6 +80,7 @@ switch ($tipoAccion) {
             $entradaLog .= " - ID de empleado no encontrado.";
         }
         break;
+    
     
     case 'Salida':
         $tiempoRegistrado = date('H:i:s');
@@ -185,7 +203,8 @@ switch ($tipoAccion) {
                 $existingRecord['additional_time'] = $_SESSION['additional_time'];  
                 $existingRecord['dealy_breaks'] = $_SESSION['daily_breaks'];
                 $existingRecord['lunch_time'] = $_SESSION['lunch_time'];
-                $existingRecord['remaining_lunch_hour'] = $_SESSION['justificacion'];
+                $existingRecord['justificacion'] = $_SESSION['justificacion'];
+                $existingRecord['token'] = $_SESSION['token'];
 
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -242,4 +261,12 @@ function actualizarJustificacion() {
 if (isset($_POST['actualizarJustificacion'])) {
     actualizarJustificacion();
 }
+
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+
+
+
+
 ?>
