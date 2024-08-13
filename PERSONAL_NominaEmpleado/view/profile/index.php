@@ -592,12 +592,15 @@ $currentTime = get_current_time(); // Call the function
                                 <h6>Pausas diarias:</h6>
                                 <div class="log" id="pausasLog"></div>
                                 <hr>
-                                <h6 style="text-align: center;" >Descargar reporte de Hoy</h6>
+                               
+                              
+                                <h6 style="text-align: center;" >Generar reporte de Hoy </h6>
+                                 <br>
                                 <div style="display: flex; justify-content: center; align-items: center; height: 50px;">
                                 
                                 <form method="post" action="generarPDF.php">
                                 <input type="hidden" name="descargarPDF" value="1">
-                                <button class="btn-assistance1" id="btn_descargar" disabled>Descargar</button>
+                                <button class="btn-assistance1" id="btn_descargar" disabled>Generar</button>
                             </form>
 
 
