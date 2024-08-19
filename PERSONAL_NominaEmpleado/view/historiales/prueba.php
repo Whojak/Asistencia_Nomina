@@ -2,8 +2,8 @@
 // Definir los parámetros
 $year = 2024;
 $employee_id = 26;
-$month = 8;
-$week = 2;
+$month = 2;
+$week = 1;
 
 // URL de la API
 $url_work_hours = "http://127.0.0.1:8000/api/assistence/work-hours/$year/$employee_id";
